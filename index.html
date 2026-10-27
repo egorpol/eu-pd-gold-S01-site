@@ -1,0 +1,1067 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+</head>
+<body>
+<title>eu-pd-composers Gold Set r020</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: sticky tab bar; item list on the left, one item card on the right; stacks at phone width. */
+:root {
+  --bg: #f2f4f7; --surface: #ffffff; --ink: #18202c; --muted: #5a6474; --line: #d8dde5;
+  --accent: #2d5ba3; --accent-soft: #e2eaf6; --on-accent: #ffffff; --chip: #eceff4;
+  --ok: #2e7a4d; --warn: #9a5c00; --warn-soft: #fbefdc; --err: #b3261e;
+  --f-display: "Source Serif 4", "Iowan Old Style", Georgia, serif;
+  --f-body: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --r: 6px;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #11151b; --surface: #181e26; --ink: #e3e8ef; --muted: #98a2b2; --line: #2b3440;
+  --accent: #88aae6; --accent-soft: #1f2c44; --on-accent: #0f1520; --chip: #212833;
+  --ok: #6cc290; --warn: #e3a94e; --warn-soft: #3a2d17; --err: #f08a80; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #11151b; --surface: #181e26; --ink: #e3e8ef; --muted: #98a2b2; --line: #2b3440;
+  --accent: #88aae6; --accent-soft: #1f2c44; --on-accent: #0f1520; --chip: #212833;
+  --ok: #6cc290; --warn: #e3a94e; --warn-soft: #3a2d17; --err: #f08a80; color-scheme: dark }
+
+html, body { height: 100%; }
+[hidden] { display: none !important; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.5 var(--f-body); }
+a { color: var(--accent); }
+button, input, textarea { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.mono { font-family: var(--f-mono); font-size: .86em; font-variant-numeric: tabular-nums; }
+
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); border-bottom: 1px solid var(--line); }
+.top-in { max-width: 1240px; margin: 0 auto; padding: 10px 16px 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 16px; }
+.brand { font-family: var(--f-display); font-weight: 600; font-size: 19px; margin: 0; }
+.brand .mono { color: var(--muted); font-weight: 400; }
+.conn { margin-left: auto; font-size: 13px; color: var(--muted); }
+.conn.bad { color: var(--err); }
+.tabs { flex-basis: 100%; display: flex; gap: 2px; overflow-x: auto; scrollbar-width: none; }
+.tab { border: 0; background: none; padding: 8px 12px 10px; border-bottom: 2px solid transparent; color: var(--muted); cursor: pointer; white-space: nowrap; }
+.tab:hover { color: var(--ink); }
+.tab[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); font-weight: 600; }
+.tab .count { font-family: var(--f-mono); font-size: 12px; margin-left: 6px; color: var(--muted); font-weight: 400; }
+
+.banner { max-width: 1240px; margin: 12px auto 0; padding: 0 16px; }
+.banner p { margin: 0; padding: 10px 12px; border-radius: var(--r); background: var(--warn-soft); color: var(--ink); border: 1px solid var(--warn); font-size: 14px; }
+
+main { max-width: 1240px; margin: 0 auto; padding: 16px 16px 48px; }
+.layout { display: grid; grid-template-columns: 290px minmax(0, 1fr); gap: 20px; align-items: start; }
+@media (max-width: 860px) { .layout { grid-template-columns: minmax(0, 1fr); } }
+
+.side { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 92px); display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+@media (max-width: 860px) { .side { position: static; } }
+.filters { display: flex; flex-wrap: wrap; gap: 4px; }
+.chip { border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 2px 10px; font-size: 13px; cursor: pointer; color: var(--muted); }
+.chip[aria-pressed="true"] { background: var(--accent-soft); border-color: var(--accent); color: var(--ink); }
+.search { width: 100%; box-sizing: border-box; padding: 6px 10px; border: 1px solid var(--line); border-radius: var(--r); background: var(--surface); }
+.list { position: relative; list-style: none; margin: 0; padding: 0; max-height: calc(100vh - 230px); overflow: auto; border: 1px solid var(--line); border-radius: var(--r); background: var(--surface); }
+@media (max-width: 860px) { .list { max-height: 210px; } }
+.list button { display: grid; grid-template-columns: 12px 46px minmax(0, 1fr); gap: 8px; align-items: center; width: 100%; text-align: left; border: 0; border-bottom: 1px solid var(--line); background: none; padding: 6px 10px; cursor: pointer; font-size: 14px; }
+.list li:last-child button { border-bottom: 0; }
+.list button:hover { background: var(--chip); }
+.list button[aria-current="true"] { background: var(--accent-soft); }
+.list .lbl { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.list .nomatch { padding: 12px; color: var(--muted); font-size: 14px; }
+.dot { width: 10px; height: 10px; border-radius: 50%; border: 1.5px solid var(--muted); box-sizing: border-box; }
+.dot.partial { background: linear-gradient(90deg, var(--muted) 50%, transparent 50%); }
+.dot.done { background: var(--ok); border-color: var(--ok); }
+.dot.unsure { background: var(--warn); border-color: var(--warn); }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 12px; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 5px; }
+
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); min-width: 0; }
+.card-head { padding: 18px 20px 14px; border-bottom: 1px solid var(--line); display: flex; flex-direction: column; gap: 8px; }
+.eyebrow { font-size: 13px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 4px 10px; }
+.name { font-family: var(--f-display); font-weight: 600; font-size: 28px; line-height: 1.15; margin: 0; text-wrap: balance; overflow-wrap: anywhere; }
+.sub { color: var(--muted); margin: -4px 0 0; }
+.links, .lookups { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.lookups { font-size: 13px; color: var(--muted); gap: 4px 12px; }
+.btn-link { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: var(--r); border: 1px solid var(--accent); color: var(--accent); text-decoration: none; font-weight: 500; font-size: 14px; }
+.btn-link:hover { background: var(--accent-soft); }
+.nolink { font-size: 14px; color: var(--muted); font-style: italic; }
+
+.q { padding: 16px 20px; border-bottom: 1px solid var(--line); display: flex; flex-direction: column; gap: 8px; }
+.q h3 { margin: 0; font-size: 13px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.q h3 .field { font-family: var(--f-mono); text-transform: none; letter-spacing: 0; font-weight: 400; margin-left: 6px; }
+.help { margin: 0; font-size: 14px; color: var(--muted); max-width: 68ch; }
+.seg { display: flex; flex-wrap: wrap; gap: 6px; }
+.opt { border: 1px solid var(--line); background: var(--surface); border-radius: var(--r); padding: 6px 14px; cursor: pointer; font-weight: 500; }
+.opt:hover { border-color: var(--accent); }
+.opt[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--on-accent); }
+.opt.u[aria-pressed="true"] { background: var(--warn); border-color: var(--warn); color: var(--on-accent); }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 6px; }
+.grid .opt { display: grid; grid-template-columns: 22px minmax(0, 1fr); align-content: start; column-gap: 6px; text-align: left; padding: 7px 10px; font-weight: 400; }
+.grid .opt b { font-family: var(--f-mono); font-weight: 500; font-size: 13px; grid-column: 2; overflow-wrap: anywhere; }
+.grid .opt .n { font-family: var(--f-mono); font-size: 12px; color: var(--muted); grid-row: 1 / span 2; padding-top: 1px; }
+.grid .opt small { grid-column: 2; font-size: 12px; line-height: 1.35; color: var(--muted); }
+.grid .opt[aria-pressed="true"] .n, .grid .opt[aria-pressed="true"] small { color: var(--on-accent); opacity: .85; }
+.row { display: flex; flex-wrap: wrap; gap: 10px; }
+.fld { display: flex; flex-direction: column; gap: 4px; font-size: 13px; color: var(--muted); min-width: 0; }
+.fld.grow { flex: 1 1 260px; }
+.fld input, .fld textarea { padding: 7px 10px; border: 1px solid var(--line); border-radius: var(--r); background: var(--bg); color: var(--ink); font-size: 15px; min-width: 0; }
+.fld input.year { width: 6.5em; font-family: var(--f-mono); }
+.fld input:disabled { opacity: .5; }
+.fld textarea { min-height: 64px; resize: vertical; }
+details.ref { font-size: 14px; color: var(--muted); }
+details.ref summary { cursor: pointer; }
+.worked { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 2px 12px; margin: 8px 0; }
+.worked dt { font-family: var(--f-mono); font-size: 13px; }
+.worked dd { margin: 0; color: var(--ink); overflow-wrap: anywhere; }
+details.ref ol { margin: 6px 0 0; padding-left: 20px; display: grid; gap: 2px; max-width: 70ch; }
+.multi { display: grid; gap: 6px; }
+.multi .grid { grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr)); }
+.multi .sublabel { margin: 4px 0 0; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+.defs-wrap { overflow-x: auto; margin-top: 6px; }
+table.defs { border-collapse: collapse; font-size: 13px; color: var(--ink); min-width: 640px; }
+table.defs th, table.defs td { text-align: left; vertical-align: top; padding: 4px 8px; border-bottom: 1px solid var(--line); }
+table.defs th { color: var(--muted); font-weight: 600; }
+.warns { list-style: none; margin: 0; padding: 0 20px; display: grid; gap: 4px; }
+.warns:not(:empty) { padding: 12px 20px; border-bottom: 1px solid var(--line); }
+.warns li { font-size: 14px; color: var(--warn); }
+.card-foot { padding: 12px 20px; display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.nav { border: 1px solid var(--line); background: var(--surface); border-radius: var(--r); padding: 6px 14px; cursor: pointer; }
+.nav:hover:not(:disabled) { border-color: var(--accent); }
+.nav:disabled { opacity: .45; cursor: default; }
+.nav.fill { align-self: flex-end; }
+.nav.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); font-weight: 600; }
+.save { margin-left: auto; font-size: 13px; color: var(--muted); }
+.save.err { color: var(--err); }
+.keys { font-size: 12px; color: var(--muted); padding: 0 20px 14px; }
+kbd { font-family: var(--f-mono); font-size: 11px; border: 1px solid var(--line); border-radius: 3px; padding: 0 4px; }
+
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 20px; display: flex; flex-direction: column; gap: 12px; max-width: 760px; }
+.panel h2 { font-family: var(--f-display); font-weight: 600; font-size: 22px; margin: 0; text-wrap: balance; }
+.panel p { margin: 0; max-width: 68ch; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+.stat { border: 1px solid var(--line); border-radius: var(--r); padding: 10px 12px; display: flex; flex-direction: column; gap: 2px; }
+.stat .k { font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.stat .v { font-family: var(--f-mono); font-size: 20px; font-variant-numeric: tabular-nums; }
+.stat .v small { font-size: 13px; color: var(--muted); }
+.exports { display: grid; gap: 8px; }
+.exp { display: flex; flex-wrap: wrap; gap: 8px 12px; align-items: center; }
+.exp .mono { flex: 1 1 220px; }
+textarea.dump { width: 100%; box-sizing: border-box; min-height: 120px; font-family: var(--f-mono); font-size: 12px; background: var(--bg); color: var(--ink); border: 1px solid var(--line); border-radius: var(--r); }
+.lock { border-left: 3px solid var(--warn); }
+@media (prefers-reduced-motion: no-preference) { .opt, .chip, .nav, .btn-link { transition: background-color .12s, border-color .12s; } }
+</style>
+
+<header class="top">
+  <div class="top-in">
+    <h1 class="brand">Gold set <span class="mono" id="dumpid">r020</span></h1>
+    <span class="conn" id="conn">Connecting…</span>
+    <nav class="tabs" role="tablist" id="tabs"></nav>
+  </div>
+</header>
+<div class="banner" id="banner" hidden><p id="bannerText"></p></div>
+<main id="main"><div class="panel"><h2>Loading the sheets</h2><p>The composers and works of the gold sample appear here in a moment. Answers are saved as you click.</p></div></main>
+<script id="gold-data" type="application/json">{"dump":"r020","style":true,"composers":[{"item":"C001","composer_id":"Q316427","name":"Morton Feldman","wikipedia_url":"https://en.wikipedia.org/wiki/Morton_Feldman","wikidata_url":"https://www.wikidata.org/wiki/Q316427","imslp_url":"https://imslp.org/wiki/Category:Feldman,_Morton","gnd_id":"118817124","viaf_id":"5120580"},{"item":"C002","composer_id":"Q7146675","name":"Patrick Hawes","wikipedia_url":"https://en.wikipedia.org/wiki/Patrick_Hawes","wikidata_url":"https://www.wikidata.org/wiki/Q7146675","imslp_url":"","gnd_id":"135313171","viaf_id":"26778459"},{"item":"C003","composer_id":"Q229613","name":"Carlos Gardel","wikipedia_url":"https://en.wikipedia.org/wiki/Carlos_Gardel","wikidata_url":"https://www.wikidata.org/wiki/Q229613","imslp_url":"https://imslp.org/wiki/Category:Gardel,_Carlos","gnd_id":"118865188","viaf_id":"56618280"},{"item":"C004","composer_id":"Q312638","name":"Franco Alfano","wikipedia_url":"https://en.wikipedia.org/wiki/Franco_Alfano","wikidata_url":"https://www.wikidata.org/wiki/Q312638","imslp_url":"https://imslp.org/wiki/Category:Alfano,_Franco","gnd_id":"122788346","viaf_id":"85150886"},{"item":"C005","composer_id":"Q1825044","name":"Niels Viggo Bentzon","wikipedia_url":"https://en.wikipedia.org/wiki/Niels_Viggo_Bentzon","wikidata_url":"https://www.wikidata.org/wiki/Q1825044","imslp_url":"","gnd_id":"124058132","viaf_id":"105524298"},{"item":"C006","composer_id":"Q463194","name":"Alexander Arutiunian","wikipedia_url":"https://en.wikipedia.org/wiki/Alexander_Arutiunian","wikidata_url":"https://www.wikidata.org/wiki/Q463194","imslp_url":"https://imslp.org/wiki/Category:Arutyunyan,_Alexander","gnd_id":"103848622","viaf_id":"114202100"},{"item":"C007","composer_id":"Q7964371","name":"Walter Bricht","wikipedia_url":"https://en.wikipedia.org/wiki/Walter_Bricht","wikidata_url":"https://www.wikidata.org/wiki/Q7964371","imslp_url":"","gnd_id":"130123153","viaf_id":"15868348"},{"item":"C008","composer_id":"Q673278","name":"Roger Reynolds","wikipedia_url":"https://en.wikipedia.org/wiki/Roger_Reynolds","wikidata_url":"https://www.wikidata.org/wiki/Q673278","imslp_url":"","gnd_id":"121414558","viaf_id":"114834544"},{"item":"C009","composer_id":"Q191499","name":"Scott Joplin","wikipedia_url":"https://en.wikipedia.org/wiki/Scott_Joplin","wikidata_url":"https://www.wikidata.org/wiki/Q191499","imslp_url":"https://imslp.org/wiki/Category:Joplin,_Scott","gnd_id":"119174030","viaf_id":"56796614"},{"item":"C010","composer_id":"Q322256","name":"Antonio Scontrino","wikipedia_url":"https://en.wikipedia.org/wiki/Antonio_Scontrino","wikidata_url":"https://www.wikidata.org/wiki/Q322256","imslp_url":"https://imslp.org/wiki/Category:Scontrino,_Antonio","gnd_id":"117453404","viaf_id":"50003292"},{"item":"C011","composer_id":"Q1066248","name":"Charles Malherbe","wikipedia_url":"https://en.wikipedia.org/wiki/Charles_Malherbe","wikidata_url":"https://www.wikidata.org/wiki/Q1066248","imslp_url":"https://imslp.org/wiki/Category:Malherbe,_Charles","gnd_id":"116694475","viaf_id":"103647764"},{"item":"C012","composer_id":"Q189534","name":"Arvo Pärt","wikipedia_url":"https://en.wikipedia.org/wiki/Arvo_Pärt","wikidata_url":"https://www.wikidata.org/wiki/Q189534","imslp_url":"https://imslp.org/wiki/Category:Pärt,_Arvo","gnd_id":"119359979","viaf_id":"111612090"},{"item":"C013","composer_id":"Q2074455","name":"David Ashkenazi","wikipedia_url":"https://en.wikipedia.org/wiki/David_Ashkenazi","wikidata_url":"https://www.wikidata.org/wiki/Q2074455","imslp_url":"","gnd_id":"","viaf_id":"326144782723866567501"},{"item":"C014","composer_id":"Q532363","name":"Christopher Gunning","wikipedia_url":"https://en.wikipedia.org/wiki/Christopher_Gunning","wikidata_url":"https://www.wikidata.org/wiki/Q532363","imslp_url":"","gnd_id":"13547499X","viaf_id":"7598281"},{"item":"C015","composer_id":"Q5039771","name":"Carl-Olof Anderberg","wikipedia_url":"https://en.wikipedia.org/wiki/Carl-Olof_Anderberg","wikidata_url":"https://www.wikidata.org/wiki/Q5039771","imslp_url":"","gnd_id":"","viaf_id":"29129965"},{"item":"C016","composer_id":"Q921023","name":"Sem Dresden","wikipedia_url":"https://en.wikipedia.org/wiki/Sem_Dresden","wikidata_url":"https://www.wikidata.org/wiki/Q921023","imslp_url":"https://imslp.org/wiki/Category:Dresden,_Sem","gnd_id":"133645606","viaf_id":"49535018"},{"item":"C017","composer_id":"Q1391669","name":"Farid El-Atrache","wikipedia_url":"https://en.wikipedia.org/wiki/Farid_al-Atrash","wikidata_url":"https://www.wikidata.org/wiki/Q1391669","imslp_url":"","gnd_id":"119080834","viaf_id":"64191605"},{"item":"C018","composer_id":"Q294225","name":"Enrique Granados","wikipedia_url":"https://en.wikipedia.org/wiki/Enrique_Granados","wikidata_url":"https://www.wikidata.org/wiki/Q294225","imslp_url":"https://imslp.org/wiki/Category:Granados,_Enrique","gnd_id":"118639315","viaf_id":"59269676"},{"item":"C019","composer_id":"Q8057855","name":"Young-ja Lee","wikipedia_url":"https://en.wikipedia.org/wiki/Young-ja_Lee","wikidata_url":"https://www.wikidata.org/wiki/Q8057855","imslp_url":"","gnd_id":"1089229275","viaf_id":"7312142"},{"item":"C020","composer_id":"Q6311579","name":"Jun Yamaguchi","wikipedia_url":"https://en.wikipedia.org/wiki/Jun_Yamaguchi","wikidata_url":"https://www.wikidata.org/wiki/Q6311579","imslp_url":"","gnd_id":"","viaf_id":"257043866"}],"composers_recheck":[],"works":[{"item":"W001","work_id":"Schwanensang, Op.11 (Schreker, Franz)","composer":"Franz Schreker","title":"Schwanensang, Op.11","imslp_work_url":"https://imslp.org/wiki/Schwanensang%2C_Op.11_%28Schreker%2C_Franz%29"},{"item":"W002","work_id":"Pastoral Suite (Scott, Cyril)","composer":"Cyril Scott","title":"Pastoral Suite","imslp_work_url":"https://imslp.org/wiki/Pastoral_Suite_%28Scott%2C_Cyril%29"},{"item":"W003","work_id":"Le Fuseau, Op.48 (Ferrari, Gabrielle)","composer":"Gabrielle Ferrari","title":"Le Fuseau, Op.48","imslp_work_url":"https://imslp.org/wiki/Le_Fuseau%2C_Op.48_%28Ferrari%2C_Gabrielle%29"},{"item":"W004","work_id":"3 Little Negro Dances (Price, Florence)","composer":"Florence Price","title":"3 Little Negro Dances","imslp_work_url":"https://imslp.org/wiki/3_Little_Negro_Dances_%28Price%2C_Florence%29"},{"item":"W005","work_id":"Melodies of the Heart, Op.5 (Grieg, Edvard)","composer":"Edvard Grieg","title":"Melodies of the Heart, Op.5","imslp_work_url":"https://imslp.org/wiki/Melodies_of_the_Heart%2C_Op.5_%28Grieg%2C_Edvard%29"},{"item":"W006","work_id":"Paean (Fine, Vivian)","composer":"Vivian Fine","title":"Paean","imslp_work_url":"https://imslp.org/wiki/Paean_%28Fine%2C_Vivian%29"},{"item":"W007","work_id":"String Quartet No.6 (Hindemith, Paul)","composer":"Paul Hindemith","title":"String Quartet No.6","imslp_work_url":"https://imslp.org/wiki/String_Quartet_No.6_%28Hindemith%2C_Paul%29"},{"item":"W008","work_id":"Chant des bateliers du Volga, KN15 (Stravinsky, Igor)","composer":"Igor Stravinsky","title":"Chant des bateliers du Volga, KN15","imslp_work_url":"https://imslp.org/wiki/Chant_des_bateliers_du_Volga%2C_KN15_%28Stravinsky%2C_Igor%29"},{"item":"W009","work_id":"Piano Sonata in D major (Sauguet, Henri)","composer":"Henri Sauguet","title":"Piano Sonata in D major","imslp_work_url":"https://imslp.org/wiki/Piano_Sonata_in_D_major_%28Sauguet%2C_Henri%29"},{"item":"W010","work_id":"Ring Out Your Bells (Vaughan Williams, Ralph)","composer":"Ralph Vaughan Williams","title":"Ring Out Your Bells","imslp_work_url":"https://imslp.org/wiki/Ring_Out_Your_Bells_%28Vaughan_Williams%2C_Ralph%29"},{"item":"W011","work_id":"Našim hrdinům, Op.289 (Fučík, Julius)","composer":"Julius Fučík","title":"Našim hrdinům, Op.289","imslp_work_url":"https://imslp.org/wiki/Na%C5%A1im_hrdin%C5%AFm%2C_Op.289_%28Fu%C4%8D%C3%ADk%2C_Julius%29"},{"item":"W012","work_id":"Entrata e Scherzetto (Ropartz, Guy)","composer":"Guy Ropartz","title":"Entrata e Scherzetto","imslp_work_url":"https://imslp.org/wiki/Entrata_e_Scherzetto_%28Ropartz%2C_Guy%29"},{"item":"W013","work_id":"Serenata, for Solo Piano (Falla, Manuel de)","composer":"Manuel de Falla","title":"Serenata, for Solo Piano","imslp_work_url":"https://imslp.org/wiki/Serenata%2C_for_Solo_Piano_%28Falla%2C_Manuel_de%29"},{"item":"W014","work_id":"Clarinet Quintet, Op.10 (Coleridge-Taylor, Samuel)","composer":"Samuel Coleridge-Taylor","title":"Clarinet Quintet, Op.10","imslp_work_url":"https://imslp.org/wiki/Clarinet_Quintet%2C_Op.10_%28Coleridge-Taylor%2C_Samuel%29"},{"item":"W015","work_id":"Schwur im Rütli, WoO 9 (Draeseke, Felix)","composer":"Felix Draeseke","title":"Schwur im Rütli, WoO 9","imslp_work_url":"https://imslp.org/wiki/Schwur_im_R%C3%BCtli%2C_WoO_9_%28Draeseke%2C_Felix%29"},{"item":"W016","work_id":"Suite No.2, Op.38 (Bernard, Émile)","composer":"Émile Bernard","title":"Suite No.2, Op.38","imslp_work_url":"https://imslp.org/wiki/Suite_No.2%2C_Op.38_%28Bernard%2C_%C3%89mile%29"},{"item":"W017","work_id":"Symphony in B-flat (Hindemith, Paul)","composer":"Paul Hindemith","title":"Symphony in B-flat","imslp_work_url":"https://imslp.org/wiki/Symphony_in_B-flat_%28Hindemith%2C_Paul%29"},{"item":"W018","work_id":"Herod, Op.47 (Coleridge-Taylor, Samuel)","composer":"Samuel Coleridge-Taylor","title":"Herod, Op.47","imslp_work_url":"https://imslp.org/wiki/Herod%2C_Op.47_%28Coleridge-Taylor%2C_Samuel%29"},{"item":"W019","work_id":"Tune Thy Music (Howells, Herbert)","composer":"Herbert Howells","title":"Tune Thy Music","imslp_work_url":"https://imslp.org/wiki/Tune_Thy_Music_%28Howells%2C_Herbert%29"},{"item":"W020","work_id":"Magyar népi muzsika, Op.42 (Weiner, Leó)","composer":"Leó Weiner","title":"Magyar népi muzsika, Op.42","imslp_work_url":"https://imslp.org/wiki/Magyar_n%C3%A9pi_muzsika%2C_Op.42_%28Weiner%2C_Le%C3%B3%29"},{"item":"W021","work_id":"4 Waltzes, Op.9 (Knorr, Iwan)","composer":"Iwan Knorr","title":"4 Waltzes, Op.9","imslp_work_url":"https://imslp.org/wiki/4_Waltzes%2C_Op.9_%28Knorr%2C_Iwan%29"},{"item":"W022","work_id":"Häi Yàn Zhī Gê (Wong, Fu Tong)","composer":"Fu Tong Wong","title":"Häi Yàn Zhī Gê","imslp_work_url":"https://imslp.org/wiki/H%C3%A4i_Y%C3%A0n_Zh%C4%AB_G%C3%AA_%28Wong%2C_Fu_Tong%29"},{"item":"W023","work_id":"Afterwards, love (Hardelot, Guy d')","composer":"Guy d'Hardelot","title":"Afterwards, love","imslp_work_url":"https://imslp.org/wiki/Afterwards%2C_love_%28Hardelot%2C_Guy_d%27%29"},{"item":"W024","work_id":"Rimbaud-Gedicht (Eisler, Hanns)","composer":"Hanns Eisler","title":"Rimbaud-Gedicht","imslp_work_url":"https://imslp.org/wiki/Rimbaud-Gedicht_%28Eisler%2C_Hanns%29"},{"item":"W025","work_id":"Snöfrid (Andrée, Elfrida)","composer":"Elfrida Andrée","title":"Snöfrid","imslp_work_url":"https://imslp.org/wiki/Sn%C3%B6frid_%28Andr%C3%A9e%2C_Elfrida%29"},{"item":"W026","work_id":"Les malheurs d'Orphée, Op.85 (Milhaud, Darius)","composer":"Darius Milhaud","title":"Les malheurs d'Orphée, Op.85","imslp_work_url":"https://imslp.org/wiki/Les_malheurs_d%27Orph%C3%A9e%2C_Op.85_%28Milhaud%2C_Darius%29"},{"item":"W027","work_id":"3 Anthems for Church Service, Op.6 (Chadwick, George Whitefield)","composer":"George Whitefield Chadwick","title":"3 Anthems for Church Service, Op.6","imslp_work_url":"https://imslp.org/wiki/3_Anthems_for_Church_Service%2C_Op.6_%28Chadwick%2C_George_Whitefield%29"},{"item":"W028","work_id":"String Quartet No.8, WVE-180 (Kan-no, Shigeru)","composer":"Shigeru Kan-no","title":"String Quartet No.8, WVE-180","imslp_work_url":"https://imslp.org/wiki/String_Quartet_No.8%2C_WVE-180_%28Kan-no%2C_Shigeru%29"},{"item":"W029","work_id":"3 Pièces, Op.21 (Widor, Charles-Marie)","composer":"Charles-Marie Widor","title":"3 Pièces, Op.21","imslp_work_url":"https://imslp.org/wiki/3_Pi%C3%A8ces%2C_Op.21_%28Widor%2C_Charles-Marie%29"},{"item":"W030","work_id":"Divertimento No.1, Op.20 (Weiner, Leó)","composer":"Leó Weiner","title":"Divertimento No.1, Op.20","imslp_work_url":"https://imslp.org/wiki/Divertimento_No.1%2C_Op.20_%28Weiner%2C_Le%C3%B3%29"}],"works_recheck":[],"practice":{"composers":[{"item":"P-C1","composer_id":"Q602486","name":"Enric Morera i Viura","wikipedia_url":"https://en.wikipedia.org/wiki/Enric_Morera_i_Viura","wikidata_url":"https://www.wikidata.org/wiki/Q602486","imslp_url":"https://imslp.org/wiki/Category:Morera,_Enric","gnd_id":"124446809","viaf_id":"44491201","worked":{"wikidata_same_person":"yes","imslp_check":"same","death_status":"dead","death_year":"1942","death_source":"GND https://d-nb.info/gnd/124446809; LoC https://id.loc.gov/authorities/names/n92085993","styles":"national_folk|late_romantic","primary_period":"late_romantic","style_source":"Gran Enciclopèdia de la Música https://www.enciclopedia.cat/gran-enciclopedia-de-la-musica/enric-morera-i-viura"},"why":"Wikidata: Catalan composer, born 22 May 1865, as in the article. IMSLP has the same dates, lists \"Enric (Enrique) Morera i Viura\" and the same VIAF cluster (44491201). GND, LoC and BnF all give 1942; the day differs (11 or 12 March), which does not matter. The GND search also returns a namesake born 1959: choose the record by dates and occupation. The Identifiers section of the Wikidata page links GND, LoC, BnF and VIAF; cite the record you opened, not Wikidata. Style: the Gran Enciclopèdia de la Música, a national music encyclopaedia, says he built on Catalan folk song, \"sempre reinterpretat, mai copiat\", and that his sardanas and choral works were played everywhere: national_folk first. His harmony began under Wagner's influence, La fada is \"de clara influència wagneriana\", and his lowered scale degrees are a \"recurs propi del Romanticisme tardà\": late_romantic, which by language is also the period. Modernisme here is the Catalan art movement of about 1890–1910, not musical modernism; he was \"refractari a les innovacions tècniques\", so no 20th-century movement tag."},{"item":"P-C2","composer_id":"Q10274029","name":"Ernestina Lecuona y Casado","wikipedia_url":"https://en.wikipedia.org/wiki/Ernestina_Lecuona_y_Casado","wikidata_url":"https://www.wikidata.org/wiki/Q10274029","imslp_url":"","gnd_id":"","viaf_id":"6871933","worked":{"wikidata_same_person":"yes","imslp_check":"found","imslp_found_url":"https://imslp.org/wiki/Category:Lecuona,_Ernestina","death_status":"dead","death_year":"1951","death_source":"Dictionnaire universel des créatrices https://dictionnaire-creatrices.com/fiche-ernestina-lecuona-casado","notes":"No dates in GND or LoC; Wikipedia, Wikidata and IMSLP agree on 3 Sep 1951.","styles":"national_folk|early_20th_century","primary_period":"early_20th_century","style_source":"EcuRed (a wiki; no reference-level entry is free online) https://www.ecured.cu/Ernestina_Lecuona"},"why":"IMSLP files her under the first surname only (Spanish double surname); the category lists \"Lecuona y Casado\" as an alternate name, the same dates and the same Wikidata item. Category:Lecuona,_Ernesto is her brother. GND has no record and LoC one without dates, so the date comes from level 2: the Dictionnaire universel des créatrices, which cites the New Grove Dictionary of Women Composers. Style: her output is Cuban song genres (habaneras, criollas, guajiras, danzones, sones and \"sobre todo, boleros\", EcuRed, which cites Giro's Diccionario enciclopédico de la música en Cuba): national_folk. The dated boleros are from 1932 and 1936, and the bolero is a 20th-century idiom, so the period is early_20th_century, not romantic; her first piece (Luisa, 1897) does not carry the bulk. EcuRed is a wiki, so say so in style_source; with library access, the Norton/Grove Dictionary of Women Composers (1994) is the level-1 source."}],"works":[{"item":"P-W1","work_id":"Suite for 2 Violins and Small Orchestra, Op.15 (Zilcher, Hermann)","composer":"Hermann Zilcher","title":"Suite for 2 Violins and Small Orchestra, Op.15","imslp_work_url":"https://imslp.org/wiki/Suite_for_2_Violins_and_Small_Orchestra%2C_Op.15_%28Zilcher%2C_Hermann%29","worked":{"force_family":"concerto","genre_form":"suite","has_files":"yes","rights_basis":"none"},"why":"The original is two soloists with orchestra. The only files are a version for 2 violins and piano under Arrangements and Transcriptions; judge the original, and even a composer's own chamber version (7) loses to concerto (9). Arrangement files still count for has_files. No category is a rights category (Sibley Mirroring Project is a scan source). Its form is suite: concerto as a form needs the title, so the family stays concerto while the form is suite."},{"item":"P-W2","work_id":"Caprice No.2 (Bacewicz, Grażyna)","composer":"Grażyna Bacewicz","title":"Caprice No.2","imslp_work_url":"https://imslp.org/wiki/Caprice_No.2_%28Bacewicz%2C_Gra%C5%BCyna%29","worked":{"force_family":"solo_instrument","genre_form":"none","has_files":"yes","rights_basis":"eu_warning"},"why":"Violin alone. A complete score (PWM, 1952) is on the page. The category list has WorkNonPD-USandEU; the file's \"Copyright: Public Domain\" line is IMSLP's Canadian status, and the basis comes from the categories. IMSLP files it under Caprices, which is not a listed form, so the form is none."}]},"styles":[{"slug":"ancient","era":"yes","period":"before 476","definition":"Music of antiquity: Greek, Roman and other ancient traditions, known from fragments and treatises.","typical":"Mesomedes; the Seikilos epitaph","not":"Modern reconstructions, or later works on ancient subjects","source":"IMSLP period Ancient"},{"slug":"medieval","era":"yes","period":"476–1400","definition":"European sacred and secular music before about 1400: chant, troubadours and trouvères, Ars antiqua, Ars nova.","typical":"Hildegard of Bingen, Pérotin, Machaut","not":"Later chant-based or neo-medieval works (tag their own period)","source":"IMSLP period Medieval"},{"slug":"renaissance","era":"yes","period":"1400–1600","definition":"Vocal and instrumental polyphony of the 15th and 16th centuries: Franco-Flemish, Roman and Venetian schools, the madrigal.","typical":"Josquin, Palestrina, Lassus","not":"Later pieces in the old style (stile antico)","source":"IMSLP period Renaissance"},{"slug":"baroque","era":"yes","period":"1600–1760","definition":"Basso continuo, concertato writing and contrapuntal forms of about 1600–1750.","typical":"Monteverdi, Corelli, Bach, Handel","not":"20th-century pastiche of Baroque forms (neoclassicism)","source":"IMSLP period Baroque"},{"slug":"classical","era":"yes","period":"1730–1820","definition":"Galant and High Classical style: periodic phrasing, sonata form, mainly homophonic textures.","typical":"Haydn, Mozart, early Beethoven","not":"'Classical music' in the broad sense; 20th-century neoclassicism","source":"IMSLP period Classical"},{"slug":"romantic","era":"yes","period":"1815–1910","definition":"Nineteenth-century Romantic language: expanded tonal harmony, lyrical melody, character pieces, programme music. Judged by language: a composer who keeps this idiom into the 20th century stays romantic.","typical":"Schumann, Chopin, Brahms, Tchaikovsky","not":"Post-Wagnerian fin-de-siècle idiom (late_romantic)","source":"IMSLP period Romantic"},{"slug":"late_romantic","era":"yes","period":"about 1880–1930, by language","definition":"Fin-de-siècle and post-Romantic language: post-Wagnerian chromaticism, very large forms and forces, often carried well into the 20th century. Activity after 1880 alone is not enough.","typical":"Mahler, Richard Strauss, Reger, Rachmaninoff, Elgar","not":"Earlier 19th-century romantic; impressionism; atonal expressionism","source":"Wikidata post-romanticism Q1125039, late romantic music Q136774417; the dump also maps Romantic music Q207591 and Romanticism Q37068 here"},{"slug":"early_20th_century","era":"yes","period":"1900–1945","definition":"Music written mainly in 1900–1945 in a 20th-century idiom that no finer tag fits: extended tonality, modality, new rhythmic idioms.","typical":"A fallback: prefer a movement tag when a source names one","not":"Post-1945 output (modern); a plainly 19th-century idiom (romantic or late_romantic)","source":"IMSLP period Early 20th century"},{"slug":"impressionism","era":"","period":"about 1890–1930","definition":"Harmony and timbre used for colour: parallel chords, whole-tone and modal scales, static harmony, evocative titles.","typical":"Debussy, Ravel, Griffes","not":"Expressionism; late-Romantic chromaticism","source":"Wikidata impressionism in music Q837182"},{"slug":"expressionism","era":"","period":"about 1905–1930","definition":"Extreme expressive intensity, often atonal or hyper-chromatic, with fragmented forms.","typical":"Schoenberg (1908–1921), Berg (Wozzeck), early Webern","not":"Twelve-tone works (serialism); atonality without that intensity (atonal_modernism)","source":"Wikidata expressionist music Q613707"},{"slug":"national_folk","era":"","period":"mainly 1840–1950","definition":"Art music built on a national or folk idiom: folk tunes, dances, modes, national subjects and genres. Folk-song arrangements count here when the composer also writes original works in the idiom.","typical":"Smetana, Dvořák, Grieg, Albéniz, Bartók, Kodály","not":"Traditional music itself (traditional_folk); a single folk-song arrangement in an otherwise different output","source":"Wikidata musical nationalism Q1196170; the dump also maps traditional folk music Q235858, sardana Q1413570 and zarzuela Q148163 here"},{"slug":"neoclassicism","era":"","period":"about 1918–1960","definition":"A 20th-century return to pre-Romantic forms and textures: clarity, motor rhythms, Baroque or Classical models, often with ironic harmony.","typical":"Stravinsky (1920–1951), Poulenc, Hindemith, Prokofiev's Classical Symphony","not":"Baroque or Classical music itself","source":"Wikidata neoclassicism Q535611, neoclassical music Q106576145"},{"slug":"atonal_modernism","era":"","period":"from about 1910","definition":"Free atonal or modernist pitch language without strict serial technique.","typical":"Ruggles, Wolpe, Carter","not":"Twelve-tone or serial works (serialism); expressionism","source":"Wikidata atonality Q211745"},{"slug":"serialism","era":"","period":"from about 1921","definition":"Twelve-tone technique, or serial organisation of pitch and other parameters, including post-serial practice.","typical":"Schoenberg (from 1923), Webern, Dallapiccola, Boulez, Babbitt","not":"Free atonality (atonal_modernism, expressionism)","source":"Wikidata serialism Q507246, twelve-tone technique Q221686"},{"slug":"modern","era":"yes","period":"1945 onwards","definition":"Post-1945 classical music in a 20th-century idiom that no finer tag fits: modal, extended-tonal or freely chromatic contemporary writing.","typical":"A fallback: prefer a movement tag when a source names one","not":"Output mainly before 1945 (early_20th_century); a plainly 19th-century idiom (romantic or late_romantic)","source":"IMSLP period Modern"},{"slug":"avant_garde","era":"","period":"from about 1950","definition":"Experimental and radical practice: indeterminacy, graphic scores, extended techniques, music theatre, happenings, Fluxus.","typical":"Cage, Kagel, Cardew","not":"Music that is only dissonant (atonal_modernism)","source":"Wikidata avant-garde music Q2332751, experimental music Q1640319, Fluxus Q108908, Q102932"},{"slug":"electroacoustic","era":"","period":"from 1948","definition":"Tape music, musique concrète, live electronics, fixed-media or computer music as a main part of the output. List it first when it is the main output; add avant_garde second only when indeterminacy, graphic scores and the like are also central.","typical":"Pierre Schaeffer, Pierre Henry, Daphne Oram","not":"One or two works with tape in an otherwise instrumental output","source":"Wikidata electroacoustic music Q1326777, musique concrète Q823560"},{"slug":"minimalism","era":"","period":"from the 1960s","definition":"Steady pulse, repetition and gradual process over static or slowly changing, mostly consonant harmony.","typical":"Riley, Reich, Glass","not":"Simple or tonal music without repetitive process","source":"Wikidata minimalist music Q572901"},{"slug":"postminimalism","era":"","period":"from the 1980s","definition":"Builds on minimalism's pulse and repetition with more harmonic motion, melody or formal contrast.","typical":"John Adams, Michael Torke, David Lang","not":"Classic process minimalism (minimalism)","source":"Wikidata post-minimalism Q2394116, Q98528143"},{"slug":"spectralism","era":"","period":"from the 1970s","definition":"Harmony and form derived from acoustic spectra: the harmonic series, timbre analysis, slow transformations.","typical":"Grisey, Murail, Dufourt, Rădulescu","not":"Colouristic harmony in general (impressionism)","source":"Wikidata spectral music Q1245902"},{"slug":"polystylism","era":"","period":"from the 1960s","definition":"Deliberate collage or juxtaposition of historical styles and quotations within a work.","typical":"Schnittke, Berio (Sinfonia), Bernd Alois Zimmermann","not":"Writing in one older style (neoclassicism)","source":"Wikidata polystylism Q3269212"},{"slug":"jazz","era":"","period":"from about 1900","definition":"Jazz, stride or other jazz-idiom composition as a main part of the output.","typical":"Jelly Roll Morton, James P. Johnson, Duke Ellington","not":"Ragtime itself (tag its period, mostly early_20th_century); concert works with jazz influence (Ravel, Milhaud: tag their own style)","source":"IMSLP period Jazz"},{"slug":"traditional_folk","era":"","period":"any","definition":"Traditional or folk repertoire itself: anonymous songs and dances, or a collector's editions of them. Only when the output is mainly such collections or editions.","typical":"Folk-song collectors whose output is mainly such collections","not":"Art music in a national idiom (national_folk)","source":"IMSLP period Traditional (folk)"},{"slug":"non_western_classical","era":"","period":"any","definition":"A classical tradition outside the Western one: Hindustani, Carnatic, Arabic or Persian art music, East Asian court music.","typical":"Tyagaraja, Muthuswami Dikshitar","not":"Western art music on non-Western subjects","source":"IMSLP period Non-western classical"}],"eras":["ancient","medieval","renaissance","baroque","classical","romantic","late_romantic","early_20th_century","modern"],"github":{"repo":"egorpol/eu-pd-gold-S01","branch":"main","dir":"data/gold/r020","annotator":"S01","guide":"guide.html","rules":"RULES.html"}}</script>
+
+<script>
+(() => {
+"use strict";
+const FIELDS = {
+  c: ["wikidata_same_person", "imslp_check", "imslp_found_url", "death_status", "death_year", "death_source", "notes"],
+  w: ["force_family", "genre_form", "has_files", "rights_basis", "notes"],
+};
+const SHEET_COLS = {
+  c: ["item", "composer_id", "name", "wikipedia_url", "wikidata_url", "imslp_url", "gnd_id", "viaf_id"],
+  w: ["item", "work_id", "composer", "title", "imslp_work_url"],
+};
+const FAMILIES = [
+  ["piano_solo", "one pianist (left hand alone too)"],
+  ["piano_ensemble", "two or more pianists or pianos, or piano with other keyboards"],
+  ["organ", "organ alone"],
+  ["keyboard_other", "harpsichord, clavichord, celesta, harmonium… alone"],
+  ["solo_instrument", "one non-keyboard instrument, alone or with one keyboard"],
+  ["guitar", "guitar or lute family; no voices, orchestra, band, electronics"],
+  ["chamber", "two or more instrumentalists otherwise; no voices, no orchestra"],
+  ["orchestral", "orchestra or string orchestra, no soloists"],
+  ["concerto", "soloist(s) with orchestra or string orchestra"],
+  ["wind_band", "wind or brass band, wind or brass ensemble"],
+  ["solo_voice", "one or two voices, any accompaniment or none"],
+  ["choral", "any chorus, or three or more voices alone"],
+  ["stage_opera", "opera, operetta, musical, staged vocal work"],
+  ["stage_ballet", "ballet"],
+  ["film_media", "film, television or radio music"],
+  ["electronic", "with electronics or tape; no voices, chorus, orchestra, band"],
+  ["pedagogical", "methods, exercises, studies as teaching material"],
+  ["other", "none of the above, or unspecified"],
+];
+const GENRES = [
+  ["opera", "opera, operetta, singspiel, zarzuela or other staged sung drama"],
+  ["ballet", "ballet or other staged dance work"],
+  ["concerto", "called concerto, concertino, concerto grosso or sinfonia concertante"],
+  ["symphony", "symphony, sinfonietta, or a sinfonia in several movements; a symphonic poem is not"],
+  ["sonata", "sonata, sonatina or trio sonata, any instrumentation"],
+  ["suite", "suite or partita: contrasting movements published as one work"],
+  ["variations", "variations on a theme, under any title"],
+  ["etude", "étude or study, alone or in a set; a method or exercise book is not"],
+  ["prelude_fugue", "prelude, fugue or fughetta, alone or paired; chorale preludes count"],
+  ["string_quartet", "for exactly 2 violins, viola and cello; other quartets are not"],
+  ["dance", "dance or set of dances (waltz, mazurka, polonaise, minuet…); marches count"],
+  ["mass_requiem", "Mass or Requiem, or a single movement or Proper text of one"],
+  ["oratorio_cantata", "oratorio, cantata or Passion: unstaged, voices and instruments, several numbers"],
+  ["overture_tone_poem", "concert overture, symphonic poem or tone poem"],
+  ["song_cycle", "songs the composer published as one connected cycle"],
+  ["song", "a song, Lied, mélodie, part-song or set of songs that is not a cycle"],
+  ["none", "none of these applies (a nocturne, fantasia, motet, caprice, divertimento, serenade…)"],
+];
+const BASES = [
+  ["eu_warning", "WorkNonPD-EU, WorkNonPD-USandEU"],
+  ["us_only", "WorkPD-USonly: public domain in the US only (not \"Non-PD US\")"],
+  ["licensed", "Works not in public domain, FileNonPD-PermissionGranted, Works Licensed through BMI / ASCAP / GEMA"],
+  ["wima", "WIMA files"],
+  ["us_routes", "Work-PD-US-notrenewed, PD-US-no notice"],
+  ["none", "none of these; WorkNonPD-US alone (a US warning) counts as none"],
+];
+const TABS = [
+  { id: "composers", label: "Composers", coll: "answers", src: "composers" },
+  { id: "works", label: "Works", coll: "answers", src: "works" },
+  { id: "practice", label: "Practice", coll: "practice", src: "practice" },
+  { id: "recheck_c", label: "Re-check composers", coll: "recheck", src: "composers_recheck", lockOf: "composers" },
+  { id: "recheck_w", label: "Re-check works", coll: "recheck", src: "works_recheck", lockOf: "works" },
+  { id: "export", label: "Progress & export" },
+];
+const COLLS = ["answers", "recheck", "practice"];
+// Sheet source in S.data → store collection → file in data/gold/<dump>/.
+const SHEETS = [["composers", "answers", "composers_sheet.tsv"], ["works", "answers", "works_sheet.tsv"], ["composers_recheck", "recheck", "composers_recheck.tsv"], ["works_recheck", "recheck", "works_recheck.tsv"]];
+// A sample without re-check items (a second annotator's overlap set) has no re-check tabs.
+const shownTabs = () => TABS.filter(t => !t.lockOf || !S.data || S.data[t.src].length);
+const DAY = 86400000;
+const $ = (s, el = document) => el.querySelector(s);
+const kindOf = it => (it.composer_id ? "c" : "w");
+const enc = encodeURIComponent;
+
+const store = {
+  get(k) { try { return JSON.parse(localStorage.getItem("goldset." + k)); } catch { return null; } },
+  set(k, v) { try { localStorage.setItem("goldset." + k, JSON.stringify(v)); } catch {} },
+  del(k) { try { localStorage.removeItem("goldset." + k); } catch {} },
+};
+
+const S = {
+  data: null, db: null, readOnly: false, connected: false,
+  server: { answers: {}, recheck: {}, practice: {} },
+  local: { answers: {}, recheck: {}, practice: {} },
+  ver: {}, timers: {}, inflight: {}, again: {},
+  tab: "composers", pos: {}, filter: "all", q: "",
+  saveMsg: "", saveErr: false,
+};
+const saved = store.get("view");
+if (saved && typeof saved === "object") { S.tab = saved.tab || S.tab; S.pos = saved.pos || {}; }
+
+// ---------- values and status ----------
+function val(coll, id) { return { ...(S.server[coll][id] || {}), ...(S.local[coll][id] || {}) }; }
+function itemsOf(tab) {
+  const d = S.data; if (!d || !tab.src) return [];
+  return tab.src === "practice" ? [...d.practice.composers, ...d.practice.works] : d[tab.src];
+}
+function complete(kind, v, it) {
+  if (kind === "w") return !!(v.force_family && v.genre_form && v.has_files && v.rights_basis);
+  if (!v.wikidata_same_person || !v.imslp_check || !v.death_status) return false;
+  if (v.imslp_check === "found" && !(v.imslp_found_url || "").trim()) return false;
+  if (v.death_status !== "unknown" && !(v.death_source || "").trim()) return false;
+  if (S.data.style) {
+    if (!v.styles || !v.primary_period) return false;
+    if (v.styles === "unknown" && v.primary_period !== "unknown") return false;
+    if (v.styles !== "unknown" && !(v.style_source || "").trim()) return false;
+  }
+  return true;
+}
+function anyUnsure(kind, v) { return FIELDS[kind].some(f => v[f] === "unsure"); }
+function status(kind, v, it) {
+  const filled = FIELDS[kind].some(f => (v[f] || "").toString().trim());
+  if (!filled) return "empty";
+  if (!complete(kind, v, it)) return "partial";
+  return anyUnsure(kind, v) ? "unsure" : "done";
+}
+function warnings(kind, v, it) {
+  const w = [];
+  const unsureFields = FIELDS[kind].filter(f => v[f] === "unsure");
+  if (unsureFields.length && !(v.notes || "").trim()) w.push("You marked " + unsureFields.join(", ") + " as unsure. Write the reason in notes.");
+  if (kind === "c") {
+    if (v.imslp_check && it.imslp_url && ["found", "none"].includes(v.imslp_check)) w.push("This row has an IMSLP link, so the answer is same, different or unsure.");
+    if (v.imslp_check && !it.imslp_url && ["same", "different"].includes(v.imslp_check)) w.push("This row has no IMSLP link, so the answer is found, none or unsure.");
+    const u = (v.imslp_found_url || "").trim();
+    if (v.imslp_check === "found" && !u) w.push("Paste the IMSLP category URL you found.");
+    if (u && !/^https:\/\/imslp\.org\/wiki\/Category:/.test(u)) w.push("The found URL should start with https://imslp.org/wiki/Category:");
+    const y = (v.death_year || "").trim();
+    if (y && !/^\d{4}$/.test(y)) w.push("Death year must be four digits, like 1942.");
+    if (/^\d{4}$/.test(y) && +y > new Date().getFullYear()) w.push("Death year is in the future.");
+    if (y && v.death_status && v.death_status !== "dead") w.push("A death year only goes with dead. Clear it or change the status.");
+    if (v.death_status === "dead" && !y) w.push("No death year: fine only if no source gives the year (say so in notes).");
+    if (v.death_status && v.death_status !== "unknown" && !(v.death_source || "").trim()) w.push(v.death_status === "living"
+      ? "Living needs dated evidence of life after 2020 (a recent premiere, staff page, interview). Name it in the source, with its URL."
+      : "Name the source you relied on, with its URL.");
+    if (S.data.style) {
+      if (v.styles && v.styles !== "unknown" && !(v.style_source || "").trim()) w.push("Name the source for the style: Grove, MGG, a publisher's page… with its URL.");
+      if (v.styles === "unknown" && v.primary_period && v.primary_period !== "unknown") w.push("You can name the period, so add its period tag to the style instead of unknown.");
+      if (/wikidata/i.test(v.style_source || "")) w.push("Wikidata's movement statements are what the style is checked against: use another source.");
+    }
+  }
+  return w;
+}
+
+// ---------- saving ----------
+function edit(coll, id, field, value) {
+  const k = coll + "/" + id;
+  S.local[coll][id] = { ...val(coll, id), [field]: value };
+  S.ver[k] = (S.ver[k] || 0) + 1;
+  clearTimeout(S.timers[k]);
+  S.timers[k] = setTimeout(() => flush(coll, id), 450);
+  setSave("Unsaved changes…");
+  refreshStatus(coll, id);
+}
+async function flush(coll, id) {
+  const k = coll + "/" + id;
+  clearTimeout(S.timers[k]);
+  if (!S.local[coll][id]) return;
+  if (!S.db || S.readOnly) { setSave("Not saved: this view can't write answers.", true); return; }
+  if (S.inflight[k]) { S.again[k] = true; return; }
+  const v = S.ver[k];
+  const body = { item: id };
+  for (const f of new Set([...FIELDS.c, ...FIELDS.w])) { const x = S.local[coll][id][f]; if (x !== undefined) body[f] = x; }
+  body.updatedAt = new Date().toISOString();
+  S.inflight[k] = true; setSave("Saving…");
+  try {
+    try { await S.db.collection(coll).doc(id).set(body); }
+    catch (e) { if (e?.code !== "unavailable") throw e; await new Promise(r => setTimeout(r, 800 + Math.random() * 800)); await S.db.collection(coll).doc(id).set(body); }
+    S.server[coll][id] = body;
+    if (S.ver[k] === v) delete S.local[coll][id];
+    setSave("Saved " + new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }));
+  } catch (e) {
+    const why = e?.code === "invalid_argument" ? "only the owner can save answers here" : (e?.message || e?.code || "unknown error");
+    setSave("Not saved: " + why + ". Your edits stay on screen; try again.", true);
+    if (e?.code === "invalid_argument") S.readOnly = true;
+  } finally {
+    S.inflight[k] = false;
+    if (S.again[k]) { S.again[k] = false; flush(coll, id); }
+  }
+}
+function flushAll() { for (const c of COLLS) for (const id of Object.keys(S.local[c])) flush(c, id); }
+document.addEventListener("visibilitychange", () => { if (document.visibilityState === "hidden") flushAll(); });
+window.addEventListener("beforeunload", e => { if (COLLS.some(c => Object.keys(S.local[c]).length)) { flushAll(); e.preventDefault(); e.returnValue = ""; } });
+function setSave(msg, err = false) {
+  S.saveMsg = msg; S.saveErr = err;
+  const el = $("#save"); if (el) { el.textContent = msg; el.classList.toggle("err", err); }
+}
+
+// ---------- re-check lock ----------
+function setProgress(src) {
+  const kind = src === "composers" || src === "composers_recheck" ? "c" : "w";
+  const coll = src.endsWith("_recheck") ? "recheck" : "answers";
+  let done = 0, unsure = 0, started = 0, last = 0;
+  for (const it of S.data[src]) {
+    const v = val(coll, it.item), st = status(kind, v, it);
+    if (st !== "empty") started++;
+    if (st === "done" || st === "unsure") { done++; last = Math.max(last, Date.parse(v.updatedAt || 0) || 0); }
+    if (anyUnsure(kind, v)) unsure++;
+  }
+  const total = S.data[src].length;
+  return { total, done, unsure, started, left: total - done, finishedAt: done === total ? last : null };
+}
+function lockState(tab) {
+  const p = setProgress(tab.lockOf);
+  const early = store.get("early." + tab.id) === true;
+  if (p.finishedAt === null) return { locked: !early, reason: "unfinished", p };
+  const unlockAt = p.finishedAt + 7 * DAY;
+  return { locked: Date.now() < unlockAt && !early, reason: "waiting", unlockAt, p };
+}
+
+// ---------- rendering ----------
+function renderTabs() {
+  const nav = $("#tabs"); nav.textContent = "";
+  for (const t of shownTabs()) {
+    const b = document.createElement("button");
+    b.className = "tab"; b.id = "tab-" + t.id; b.setAttribute("role", "tab");
+    b.setAttribute("aria-selected", String(S.tab === t.id));
+    b.textContent = t.label;
+    if (S.data && t.src && t.src !== "practice" && !t.lockOf) {
+      const p = setProgress(t.src);
+      const c = document.createElement("span"); c.className = "count"; c.textContent = p.done + "/" + p.total; b.append(c);
+    }
+    b.onclick = () => { if (S.tab !== t.id) { flushAll(); S.tab = t.id; S.filter = "all"; S.q = ""; persist(); render(); } };
+    nav.append(b);
+  }
+}
+function persist() { store.set("view", { tab: S.tab, pos: S.pos }); }
+function curTab() { return shownTabs().find(t => t.id === S.tab) || TABS[0]; }
+
+function render() {
+  renderTabs();
+  const main = $("#main"); main.textContent = "";
+  if (!S.data) return;
+  const tab = curTab();
+  if (tab.id === "export") return renderExport(main);
+  if (tab.lockOf) {
+    const L = lockState(tab);
+    if (L.locked) return renderLock(main, tab, L);
+  }
+  const items = itemsOf(tab);
+  let i = Math.min(S.pos[tab.id] || 0, items.length - 1);
+  S.pos[tab.id] = i;
+  const layout = document.createElement("div"); layout.className = "layout";
+  layout.append(renderSide(tab, items), renderCard(tab, items, i));
+  main.append(layout);
+  if (tab.lockOf) {
+    const n = document.createElement("p"); n.className = "help"; n.style.marginTop = "12px";
+    n.textContent = "Re-check answers are kept apart from your first pass. Don't open the Composers or Works tabs for these items until you finish.";
+    main.prepend(n);
+  }
+  if (tab.id === "practice") {
+    const n = document.createElement("p"); n.className = "help"; n.style.margin = "0 0 12px";
+    n.textContent = "Practice items are not in the sample and stay out of the export. Answer one, then open its worked answer to compare.";
+    main.prepend(n);
+  }
+}
+
+function filtered(tab, items) {
+  const q = S.q.trim().toLowerCase();
+  return items.map((it, i) => ({ it, i })).filter(({ it }) => {
+    const st = status(kindOf(it), val(tab.coll, it.item), it);
+    if (S.filter === "todo" && (st === "done" || st === "unsure")) return false;
+    if (S.filter === "unsure" && st !== "unsure") return false;
+    if (S.filter === "done" && st !== "done" && st !== "unsure") return false;
+    if (q && !(it.item + " " + (it.name || it.title || "") + " " + (it.composer || "")).toLowerCase().includes(q)) return false;
+    return true;
+  });
+}
+function renderSide(tab, items) {
+  const side = document.createElement("aside"); side.className = "side";
+  const f = document.createElement("div"); f.className = "filters";
+  for (const [k, l] of [["all", "All"], ["todo", "To do"], ["unsure", "Unsure"], ["done", "Done"]]) {
+    const c = document.createElement("button"); c.className = "chip"; c.id = "flt-" + k; c.textContent = l;
+    c.setAttribute("aria-pressed", String(S.filter === k));
+    c.onclick = () => { S.filter = k; render(); };
+    f.append(c);
+  }
+  const s = document.createElement("input"); s.className = "search"; s.id = "search"; s.type = "search";
+  s.placeholder = "Filter by name or item"; s.value = S.q; s.setAttribute("aria-label", "Filter items");
+  s.oninput = () => { S.q = s.value; fillList(tab, items, ul); };
+  const ul = document.createElement("ul"); ul.className = "list"; ul.id = "list";
+  fillList(tab, items, ul);
+  const lg = document.createElement("div"); lg.className = "legend";
+  lg.innerHTML = '<span><i class="dot"></i>empty</span><span><i class="dot partial"></i>started</span><span><i class="dot done"></i>done</span><span><i class="dot unsure"></i>done, with unsure</span>';
+  side.append(f, s, ul, lg);
+  return side;
+}
+function fillList(tab, items, ul) {
+  ul.textContent = "";
+  const rows = filtered(tab, items);
+  if (!rows.length) { const li = document.createElement("li"); li.className = "nomatch"; li.textContent = "Nothing matches this filter."; ul.append(li); return; }
+  for (const { it, i } of rows) {
+    const li = document.createElement("li"), b = document.createElement("button");
+    b.id = "li-" + it.item;
+    if (i === S.pos[tab.id]) b.setAttribute("aria-current", "true");
+    const d = document.createElement("i"); d.className = "dot " + status(kindOf(it), val(tab.coll, it.item), it); d.id = "dot-" + it.item;
+    const id = document.createElement("span"); id.className = "mono"; id.textContent = it.item;
+    const lb = document.createElement("span"); lb.className = "lbl"; lb.textContent = it.name || it.title;
+    if (it.composer) lb.title = it.title + " (" + it.composer + ")";
+    b.append(d, id, lb);
+    b.onclick = () => go(i);
+    li.append(b); ul.append(li);
+  }
+  const cur = ul.querySelector('[aria-current="true"]');
+  if (cur) requestAnimationFrame(() => { const top = cur.offsetTop - ul.clientHeight / 2; if (top > 0 && (cur.offsetTop < ul.scrollTop || cur.offsetTop > ul.scrollTop + ul.clientHeight - 30)) ul.scrollTop = top; });
+}
+function go(i) {
+  const tab = curTab(), items = itemsOf(tab);
+  if (i < 0 || i >= items.length) return;
+  const prev = items[S.pos[tab.id]]; if (prev) flush(tab.coll, prev.item);
+  S.pos[tab.id] = i; persist(); render();
+  const top = $(".card"); if (top && top.getBoundingClientRect().top < 0) top.scrollIntoView({ block: "start" });
+}
+function nextTodo() {
+  const tab = curTab(), items = itemsOf(tab), n = items.length, from = S.pos[tab.id];
+  for (let k = 1; k <= n; k++) {
+    const j = (from + k) % n, it = items[j], st = status(kindOf(it), val(tab.coll, it.item), it);
+    if (st === "empty" || st === "partial") return go(j);
+  }
+}
+
+function el(tag, attrs = {}, ...kids) {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) {
+    if (k === "class") e.className = v; else if (k === "text") e.textContent = v;
+    else if (k.startsWith("on")) e[k] = v; else e.setAttribute(k, v);
+  }
+  for (const c of kids) if (c != null) e.append(c);
+  return e;
+}
+function ext(href, label, cls = "btn-link") { return el("a", { class: cls, href, target: "_blank", rel: "noopener", text: label + " ↗" }); }
+
+function renderCard(tab, items, i) {
+  const it = items[i], kind = kindOf(it), coll = tab.coll, id = it.item;
+  const v = () => val(coll, id);
+  const card = el("article", { class: "card", "aria-label": "Item " + id });
+  const head = el("header", { class: "card-head" });
+  const eyebrow = el("div", { class: "eyebrow" },
+    el("span", { class: "mono", text: id }),
+    el("span", { class: "mono", text: kind === "c" ? it.composer_id : "" }),
+    el("span", { text: (i + 1) + " of " + items.length }));
+  head.append(eyebrow);
+  if (kind === "c") {
+    head.append(el("h2", { class: "name", text: it.name }));
+    const links = el("div", { class: "links" }, ext(it.wikipedia_url, "Wikipedia"), ext(it.wikidata_url, "Wikidata"));
+    links.append(it.imslp_url ? ext(it.imslp_url, "IMSLP category") : el("span", { class: "nolink", text: "No IMSLP link in this row: search for one" }));
+    // GND and VIAF ids come from the Wikidata item: check them against the article like the item itself.
+    // d-nb.info is the canonical GND URI and opens the record in the DNB portal; lobid shows the same record.
+    if (it.gnd_id) links.append(ext("https://d-nb.info/gnd/" + enc(it.gnd_id), "GND " + it.gnd_id));
+    if (it.viaf_id) links.append(ext("https://viaf.org/viaf/" + enc(it.viaf_id), "VIAF"));
+    const n = enc(it.name);
+    const look = el("div", { class: "lookups" }, el("span", { text: "Look up:" }),
+      it.gnd_id ? ext("https://lobid.org/gnd/" + enc(it.gnd_id), "GND on lobid", "") : null,
+      ext("https://imslp.org/index.php?title=Special:Search&search=" + n, "IMSLP search", ""),
+      ext("https://lobid.org/gnd/search?q=" + n + "&filter=type:Person", it.gnd_id ? "GND search" : "GND", ""),
+      ext("https://id.loc.gov/search/?q=" + n + "&q=cs:http://id.loc.gov/authorities/names", "LoC", ""),
+      ext("https://catalogue.bnf.fr/rechercher.do?motRecherche=" + n, "BnF", ""),
+      ext("https://www.oxfordmusiconline.com/search?q=" + n + "&searchBtn=Search&isQuickSearch=true", "Grove", ""));
+    head.append(links, look);
+  } else {
+    head.append(el("h2", { class: "name", text: it.title }), el("p", { class: "sub", text: it.composer }),
+      el("div", { class: "links" }, ext(it.imslp_work_url, "IMSLP work page")));
+  }
+  card.append(head);
+
+  const warnUl = el("ul", { class: "warns", id: "warns", "aria-live": "polite" });
+  const groups = [];
+  function seg(field, opts, cls = "seg", onPick) {
+    const wrap = el("div", { class: cls, role: "group", "aria-label": field });
+    const btns = opts.map(o => {
+      const b = el("button", { class: "opt" + (o.v === "unsure" ? " u" : ""), id: "o-" + field + "-" + o.v, type: "button", "aria-pressed": "false" });
+      if (o.n) b.append(el("span", { class: "n", text: o.n }));
+      b.append(cls === "grid" ? el("b", { text: o.v }) : document.createTextNode(o.v));
+      if (o.hint) b.append(el("small", { text: o.hint }));
+      b.onclick = () => { const nv = v()[field] === o.v ? "" : o.v; edit(coll, id, field, nv); onPick?.(nv); sync(); };
+      return b;
+    });
+    wrap.append(...btns);
+    groups.push(() => { const cur = v()[field] || ""; btns.forEach((b, k) => b.setAttribute("aria-pressed", String(opts[k].v === cur))); });
+    return wrap;
+  }
+  // Ordered multi-select stored as "a|b|c"; `unknown` excludes the tags.
+  function multi(field, sections, max) {
+    const wrap = el("div", { class: "multi", role: "group", "aria-label": field });
+    const tip = el("p", { class: "help", text: "Selected tags show their rank. At most " + max + "." });
+    const cur = () => (v()[field] || "").split("|").filter(Boolean);
+    const btns = [];
+    for (const [label, opts] of sections) {
+      if (label) wrap.append(el("p", { class: "sublabel", text: label }));
+      const grid = el("div", { class: "grid" });
+      for (const o of opts) {
+        const b = el("button", { class: "opt" + (o.v === "unknown" ? " u" : ""), id: "o-" + field + "-" + o.v, type: "button", "aria-pressed": "false" });
+        const rank = el("span", { class: "n" });
+        b.append(rank, el("b", { text: o.v }));
+        if (o.hint) b.append(el("small", { text: o.hint }));
+        b.onclick = () => {
+          let tags = cur();
+          if (o.v === "unknown") tags = tags[0] === "unknown" ? [] : ["unknown"];
+          else if (tags.includes(o.v)) tags = tags.filter(t => t !== o.v);
+          else if (tags.filter(t => t !== "unknown").length >= max) { tip.textContent = "Already " + max + " tags: click one to remove it first."; return; }
+          else tags = [...tags.filter(t => t !== "unknown"), o.v];
+          tip.textContent = "Selected tags show their rank. At most " + max + ".";
+          edit(coll, id, field, tags.join("|")); sync();
+        };
+        btns.push({ b, rank, v: o.v });
+        grid.append(b);
+      }
+      wrap.append(grid);
+    }
+    wrap.append(tip);
+    groups.push(() => {
+      const tags = cur();
+      for (const x of btns) { const k = tags.indexOf(x.v); x.b.setAttribute("aria-pressed", String(k >= 0)); x.rank.textContent = k >= 0 && x.v !== "unknown" ? String(k + 1) : ""; }
+    });
+    return wrap;
+  }
+  function text(field, label, attrs = {}, area = false) {
+    const { grow, ...rest } = attrs;
+    const inp = el(area ? "textarea" : "input", { id: "t-" + field, ...rest });
+    inp.value = v()[field] || "";
+    inp.oninput = () => { edit(coll, id, field, inp.value); syncWarn(); };
+    inp.onblur = () => flush(coll, id);
+    groups.push(() => { if (document.activeElement !== inp) inp.value = v()[field] || ""; });
+    return { box: el("label", { class: "fld" + (grow ? " grow" : "") }, el("span", { text: label }), inp), inp };
+  }
+  const q = (title, field, ...kids) => el("section", { class: "q" }, el("h3", {}, title, field ? el("span", { class: "field", text: field }) : null), ...kids);
+
+  let yearInp, foundBox;
+  if (kind === "c") {
+    card.append(q("Same person on Wikidata?", "wikidata_same_person",
+      el("p", { class: "help", text: "Compare the Wikidata item with the Wikipedia article: name, dates, occupation, nationality. A namesake (painter, politician, father) is no." }),
+      seg("wikidata_same_person", ["yes", "no", "unsure"].map(x => ({ v: x })))));
+    const linked = !!it.imslp_url;
+    const found = text("imslp_found_url", "IMSLP category URL you found", { type: "url", placeholder: "https://imslp.org/wiki/Category:…", grow: "1" });
+    foundBox = found.box;
+    card.append(q(linked ? "Does the IMSLP category belong to this composer?" : "Does IMSLP have a composer category for this person?", "imslp_check",
+      el("p", { class: "help", text: linked
+        ? "Compare IMSLP's life dates, links and works with the Wikipedia article."
+        : "Search IMSLP for the name and its variants: transliterations, maiden names, name order. Found needs the URL." }),
+      seg("imslp_check", (linked ? ["same", "different", "unsure"] : ["found", "none", "unsure"]).map(x => ({ v: x }))),
+      linked ? null : el("div", { class: "row" }, found.box)));
+    const yr = text("death_year", "Death year", { inputmode: "numeric", maxlength: "4", placeholder: "YYYY", class: "year" });
+    yearInp = yr.inp;
+    const src = text("death_source", "Source: a GND number, or short name + URL or id", { placeholder: "118776312, or LoC n92085993", grow: "1" });
+    let useGnd = null;
+    if (it.gnd_id) {
+      const gnd = "GND " + it.gnd_id;
+      useGnd = el("button", { class: "nav fill", id: "use-gnd", type: "button", text: "Use " + gnd,
+        title: "Fill the source with this row's GND record. Type the year yourself.",
+        onclick: () => { edit(coll, id, "death_source", gnd); flush(coll, id); sync(); } });
+      groups.push(() => { useGnd.disabled = (v().death_source || "").trim() === gnd; });
+    }
+    card.append(q("Death", "death_status",
+      el("p", { class: "help", text: "Living needs positive evidence of life after 2020. If you can't tell, use unknown. Leave the year empty if the person died but no source gives it." }),
+      seg("death_status", ["dead", "living", "unknown"].map(x => ({ v: x }))),
+      el("div", { class: "row" }, yr.box, src.box, useGnd),
+      el("details", { class: "ref" }, el("summary", { text: "Source hierarchy" }),
+        el("ol", {},
+          el("li", { text: "National authority files: GND, BnF, Library of Congress, or their VIAF cluster." }),
+          el("li", { text: "Reference works: Grove / Oxford Music Online, MGG, Baker's, national biographies." }),
+          el("li", { text: "Institutions and press: music information centres, publishers, obituaries." }),
+          el("li", { text: "Wikipedia or Wikidata, only when nothing above has the date. Say so in the source." })),
+        el("p", { class: "help", style: "margin-top:6px", text: "Use two independent sources when they are quick to find. When they disagree, take the year most authorities give and write the conflict in notes." }))));
+    if (S.data.style) {
+      const defs = S.data.styles;
+      const opt = d => ({ v: d.slug, hint: d.definition });
+      const full = el("table", { class: "defs" }, el("tr", {}, ...["Tag", "Period", "Definition", "Typical composers", "Not this"].map(h => el("th", { text: h }))),
+        ...defs.map(d => el("tr", {}, el("td", { class: "mono", text: d.slug }), ...[d.period, d.definition, d.typical, d.not].map(x => el("td", { text: x || "" })))));
+      card.append(q("Style: up to 3 tags, most characteristic first", "styles",
+        el("p", { class: "help", text: "Describe the composer's music as a whole, from reference works and the composer's scores, not from Wikidata's movement statements or IMSLP's Piece Style. A movement tag needs a source that places the composer in it, or music that clearly uses its technique; otherwise give the period. Click a selected tag to remove it." }),
+        multi("styles", [["Periods", defs.filter(d => d.era).map(opt)], ["Movements and traditions", defs.filter(d => !d.era).map(opt)],
+          ["", [{ v: "unknown", hint: "no source lets you place this composer at all" }]]], 3),
+        el("details", { class: "ref" }, el("summary", { text: "Definitions in full" }), el("div", { class: "defs-wrap" }, full))));
+      const ssrc = text("style_source", "Source for the style: short name + URL", { placeholder: "Grove https://…, or MGG Online", grow: "1" });
+      card.append(q("Primary period", "primary_period",
+        el("p", { class: "help", text: "The period where the bulk of the composer's output sits, judged by its musical language more than the calendar." }),
+        seg("primary_period", [...S.data.eras.map(x => ({ v: x })), { v: "unknown", hint: "" }]),
+        el("div", { class: "row" }, ssrc.box)));
+    }
+  } else {
+    card.append(q("Instrumentation of the original version", "force_family",
+      el("p", { class: "help", text: "Judge the composer's original scoring and ignore arrangements by others. If the composer made several versions, pick the one later in this list." }),
+      seg("force_family", [...FAMILIES.map(([k, h], n) => ({ v: k, hint: h, n: String(n + 1) })), { v: "unsure", hint: "write why in notes" }], "grid")));
+    card.append(q("Form of the original work", "genre_form",
+      el("p", { class: "help", text: "Judge the composer's original; an arrangement takes the original's form. A piece drawn from a larger work (an overture, aria or suite from an opera or ballet) takes the larger work's form. If several apply, pick the first in this list." }),
+      seg("genre_form", [...GENRES.map(([k, h], n) => ({ v: k, hint: h, n: String(n + 1) })), { v: "unsure", hint: "write why in notes" }], "grid")));
+    card.append(q("Files on the page?", "has_files",
+      el("p", { class: "help", text: "At least one score, part or recording file. Files on IMSLP's other servers count; cover images do not." }),
+      seg("has_files", ["yes", "no", "unsure"].map(x => ({ v: x })))));
+    card.append(q("IMSLP rights basis", "rights_basis",
+      el("p", { class: "help", text: "From the category list at the bottom of the work page, first match in this order. A file's Copyright line does not count; if it disagrees with the categories, say so in notes." }),
+      seg("rights_basis", [...BASES.map(([k, h], n) => ({ v: k, hint: h, n: String(n + 1) })), { v: "unsure", hint: "write why in notes" }], "grid")));
+  }
+  const notes = text("notes", "Conflicts between sources, doubts, page changes", { rows: "3" }, true);
+  notes.box.classList.add("grow");
+  card.append(el("section", { class: "q" }, el("h3", {}, "Notes", el("span", { class: "field", text: "notes" })), notes.box));
+  card.append(warnUl);
+  if (it.worked) {
+    const dl = el("dl", { class: "worked" });
+    for (const f of FIELDS[kind]) if (it.worked[f]) dl.append(el("dt", { text: f }), el("dd", { text: it.worked[f] }));
+    card.append(el("section", { class: "q" }, el("details", { class: "ref" }, el("summary", { text: "Worked answer" }), dl, el("p", { class: "help", text: it.why || "" }))));
+  }
+
+  const prev = el("button", { class: "nav", id: "prev", type: "button", text: "← Previous", onclick: () => go(i - 1) });
+  const next = el("button", { class: "nav", id: "next", type: "button", text: "Next →", onclick: () => go(i + 1) });
+  const todo = el("button", { class: "nav primary", id: "todo", type: "button", text: "Next to do", onclick: nextTodo });
+  if (i === 0) prev.disabled = true;
+  if (i === items.length - 1) next.disabled = true;
+  card.append(el("footer", { class: "card-foot" }, prev, next, todo, el("span", { class: "save" + (S.saveErr ? " err" : ""), id: "save", role: "status", text: S.saveMsg })));
+  card.append(el("p", { class: "keys" }, "Keys outside text fields: ", el("kbd", { text: "j" }), " next, ", el("kbd", { text: "k" }), " previous, ", el("kbd", { text: "n" }), " next to do."));
+
+  function syncWarn() {
+    warnUl.textContent = "";
+    for (const w of warnings(kind, v(), it)) warnUl.append(el("li", { text: w }));
+  }
+  function sync() {
+    groups.forEach(g => g());
+    if (kind === "c") {
+      const cur = v();
+      if (foundBox) foundBox.hidden = cur.imslp_check !== "found" && !(cur.imslp_found_url || "").trim();
+      yearInp.disabled = cur.death_status !== "dead" && !(cur.death_year || "").trim();
+    }
+    syncWarn();
+  }
+  card._sync = sync;
+  card._id = id;
+  sync();
+  return card;
+}
+
+function refreshStatus(coll, id) {
+  const tab = curTab();
+  if (tab.coll === coll) {
+    const it = itemsOf(tab).find(x => x.item === id);
+    const d = document.getElementById("dot-" + id);
+    if (it && d) d.className = "dot " + status(kindOf(it), val(coll, id), it);
+  }
+  renderTabs();
+}
+
+function renderLock(main, tab, L) {
+  const kindWord = tab.lockOf === "composers" ? "composers" : "works";
+  const p = el("div", { class: "panel lock" });
+  p.append(el("h2", { text: tab.label + " is locked" }));
+  if (L.reason === "unfinished") {
+    p.append(el("p", { text: "The re-check opens 7 days after you finish all " + L.p.total + " " + kindWord + ". " + L.p.left + " still need an answer." }));
+  } else {
+    const d = new Date(L.unlockAt);
+    p.append(el("p", { text: "You finished the " + kindWord + " on " + new Date(L.p.finishedAt).toLocaleDateString() + ". The re-check opens on " + d.toLocaleDateString() + " at " + d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) + "." }));
+  }
+  p.append(el("p", { class: "help", text: "The wait is what makes the re-check a measure of consistency rather than memory. It holds " + S.data[tab.src].length + " of the same items in a new order, and you answer them without looking at your first answers." }));
+  const b = el("button", { class: "nav", id: "early-" + tab.id, type: "button", text: "Open early…" });
+  b.onclick = () => {
+    if (b.dataset.armed) { store.set("early." + tab.id, true); render(); return; }
+    b.dataset.armed = "1"; b.textContent = "Open now, ignoring the 7-day rule"; b.classList.add("primary");
+  };
+  p.append(el("div", { class: "row" }, b));
+  main.append(p);
+}
+
+// rows: the answers a push sends, by item; without it, what this tab shows.
+function tsvFor(src, coll, rows) {
+  const kind = src.startsWith("composers") ? "c" : "w";
+  const cols = [...SHEET_COLS[kind], ...FIELDS[kind]];
+  // A cell holding a quote is quoted as pandas writes it, so a note opening with an unclosed quote can't swallow
+  // the rows after it when the sheet is read back.
+  const clean = s => { const t = String(s ?? "").replace(/[\t\r\n]+/g, " ").trim(); return t.includes('"') ? '"' + t.replace(/"/g, '""') + '"' : t; };
+  const lines = [cols.join("\t")];
+  for (const it of S.data[src]) {
+    const v = rows ? rows[it.item] || {} : val(coll, it.item);
+    lines.push(cols.map(c => clean(c in it ? it[c] : v[c])).join("\t"));
+  }
+  return lines.join("\n") + "\n";
+}
+function renderExport(main) {
+  const wrap = el("div", { class: "panel" });
+  wrap.append(el("h2", { text: "Progress" }));
+  const stats = el("div", { class: "stats" });
+  const C = setProgress("composers"), W = setProgress("works");
+  const perComposer = S.data.style ? 8 : 3;
+  const mins = C.left * perComposer + W.left;
+  stats.append(
+    el("div", { class: "stat" }, el("span", { class: "k", text: "Composers" }), el("span", { class: "v" }, String(C.done), el("small", { text: " / " + C.total }))),
+    el("div", { class: "stat" }, el("span", { class: "k", text: "Works" }), el("span", { class: "v" }, String(W.done), el("small", { text: " / " + W.total }))),
+    el("div", { class: "stat" }, el("span", { class: "k", text: "With unsure" }), el("span", { class: "v", text: String(C.unsure + W.unsure) })),
+    el("div", { class: "stat" }, el("span", { class: "k", text: "Time left, est." }), el("span", { class: "v" }, String(Math.floor(mins / 60)), el("small", { text: " h " + (mins % 60) + " min" }))));
+  wrap.append(stats);
+  wrap.append(el("p", { class: "help", text: "Estimate: " + perComposer + " minutes per composer, 1 per work. Done means every required answer is filled; started items count as not done." }));
+  wrap.append(el("h2", { text: "Export" }));
+  const local = !window.claude?.use;
+  wrap.append(el("p", { text: S.gh
+    ? "Your answers are saved to GitHub a few seconds after each change, so there is nothing to send. Copy and Download below are only a backup. Practice answers stay in this browser."
+    : "On claude.ai, Claude reads your answers from this page's store and writes them into data/gold/" + S.data.dump + "/. In a local copy, Copy a sheet to paste it over its file in your repository, or Download it to send by email. Each sheet is complete, as TSV in the original row order." }));
+  const box = el("textarea", { class: "dump", id: "tsvbox", readonly: "", "aria-label": "Copied TSV" }); box.hidden = true;
+  const ex = el("div", { class: "exports" });
+  for (const [src, coll, file] of SHEETS.filter(([src]) => S.data[src].length)) {
+    const msg = el("span", { class: "help", text: "" });
+    const b = el("button", { class: "nav", type: "button", id: "copy-" + src, text: "Copy" });
+    b.onclick = () => {
+      const t = tsvFor(src, coll);
+      const fallback = () => { box.hidden = false; box.value = t; box.focus(); box.select(); msg.textContent = "Copying is blocked here. The text is selected below; press Ctrl+C."; };
+      try { navigator.clipboard.writeText(t).then(() => { msg.textContent = "Copied " + S.data[src].length + " rows."; }, fallback); } catch { fallback(); }
+    };
+    const d = local ? el("button", { class: "nav", type: "button", id: "dl-" + src, text: "Download" }) : null;
+    if (d) d.onclick = () => {
+      const url = URL.createObjectURL(new Blob([tsvFor(src, coll)], { type: "text/tab-separated-values" }));
+      const a = el("a", { href: url, download: file }); document.body.append(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+      msg.textContent = "Saved " + file + " to your downloads.";
+    };
+    ex.append(el("div", { class: "exp" }, el("span", { class: "mono", text: file }), b, d, msg));
+  }
+  wrap.append(ex, box);
+  main.append(wrap);
+}
+
+// ---------- keys ----------
+document.addEventListener("keydown", e => {
+  if (e.ctrlKey || e.metaKey || e.altKey) return;
+  const t = e.target;
+  if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA")) return;
+  const tab = curTab(); if (!tab.src || !$(".card")) return;
+  if (e.key === "j") go((S.pos[tab.id] || 0) + 1);
+  else if (e.key === "k") go((S.pos[tab.id] || 0) - 1);
+  else if (e.key === "n") nextTodo();
+});
+
+// ---------- boot ----------
+function conn(msg, bad = false) { const c = $("#conn"); c.textContent = msg; c.classList.toggle("bad", bad); }
+function banner(msg) { $("#bannerText").textContent = msg; $("#banner").hidden = !msg; }
+function onServer() {
+  const card = $(".card");
+  const tab = curTab();
+  if (card && card._sync && tab.coll && !S.local[tab.coll][card._id]) card._sync();
+  if (tab.id === "export" || (tab.lockOf && $(".lock"))) render();
+  else {
+    renderTabs();
+    for (const it of itemsOf(tab)) { const d = document.getElementById("dot-" + it.item); if (d) d.className = "dot " + status(kindOf(it), val(tab.coll, it.item), it); }
+  }
+}
+// Outside claude.ai (a local build opened in a browser) answers live in localStorage,
+// behind the same calls the page makes on the artifact's store.
+function localDb(name) {
+  const key = c => "goldset." + name + "." + c, subs = {};
+  const read = c => { try { return JSON.parse(localStorage.getItem(key(c))) || {}; } catch { return {}; } };
+  const snap = c => ({ docs: Object.entries(read(c)).map(([id, d]) => ({ id, exists: true, data: () => d })) });
+  const write = (c, m) => { localStorage.setItem(key(c), JSON.stringify(m)); (subs[c] || []).forEach(f => f(snap(c))); };
+  localStorage.setItem(key("probe"), "{}"); localStorage.removeItem(key("probe"));
+  window.addEventListener("storage", e => {
+    if (!e.key) return;
+    for (const c of Object.keys(subs)) if (e.key === key(c)) subs[c].forEach(f => f(snap(c)));
+  });
+  return {
+    all: read, replace: write,
+    collection: c => ({
+      doc: id => ({ async set(body) { const m = read(c); m[id] = body; write(c, m); } }),
+      onSnapshot(next) { (subs[c] ||= []).push(next); setTimeout(() => next(snap(c)), 0); return () => {}; },
+    }),
+  };
+}
+// A contributor's hosted page (kit --repo) keeps answers in this browser first and commits the sheets to the
+// contributor's repository a few seconds after each change, with the key from their personal link (#key=…).
+// Each edited row is tracked in a dirty map so concurrent tabs and conflict retries keep local edits while
+// adopting remote answers for clean rows; without a key, edits stay dirty until the personal link opens.
+function githubSync(gh, db) {
+  const name = S.data.dump + "." + gh.annotator;
+  const m = location.hash.match(/(?:^#|&)key=([\w-]+)/);
+  if (m) { store.set("key." + name, m[1]); history.replaceState(null, "", location.pathname + location.search); }
+  const key = store.get("key." + name);
+  // One key per edited row (goldset.dirty.<dump>.<annotator>.answers/C001 → seq), so two tabs never rewrite
+  // each other's markers.
+  const dk = "dirty." + name + ".";
+  const dirtyNow = () => {
+    const m = {}, p = "goldset." + dk;
+    try { for (let i = 0; i < localStorage.length; i++) { const k = localStorage.key(i); if (k.startsWith(p)) m[k.slice(p.length)] = store.get(dk + k.slice(p.length)); } } catch {}
+    return m;
+  };
+  // Throws when storage is full, so the save fails visibly instead of storing an unmarked answer.
+  const mark = (coll, id) => { const k = dk + coll + "/" + id; localStorage.setItem("goldset." + k, JSON.stringify(Math.max(Date.now(), (store.get(k) || 0) + 1))); };
+  // Marking and saving a row, clearing markers and merging a loaded sheet run one at a time across this browser's tabs.
+  const locked = f => navigator.locks ? navigator.locks.request("goldset." + dk, f) : f();
+  let dead = false;
+  let onEdit = () => {};
+  const wrapper = {
+    collection: c => ({
+      doc: id => ({ async set(body) {
+        // Practice answers never leave the browser. The marker goes first: an answer is never stored unmarked.
+        if (c === "practice") return db.collection(c).doc(id).set(body);
+        await locked(async () => { mark(c, id); await db.collection(c).doc(id).set(body); });
+        onEdit();
+      } }),
+      onSnapshot: (...a) => db.collection(c).onSnapshot(...a),
+    }),
+  };
+  if (!key) return { db: wrapper, live: false };
+  const api = "https://api.github.com/repos/" + gh.repo + "/contents/" + gh.dir + "/";
+  const headers = { Authorization: "Bearer " + key, Accept: "application/vnd.github+json", "X-GitHub-Api-Version": "2022-11-28" };
+  const sheets = SHEETS.filter(([src]) => S.data[src].length);
+  const sha = {}, sent = {};
+  let timer = null, busy = false, again = false, loaded = false, wait = 0;
+  const time = () => new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  const b64 = text => {
+    const bytes = new TextEncoder().encode(text); let s = "";
+    for (let i = 0; i < bytes.length; i += 0x8000) s += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
+    return btoa(s);
+  };
+  const unb64 = s => new TextDecoder().decode(Uint8Array.from(atob(s.replace(/\s/g, "")), c => c.charCodeAt(0)));
+  async function get(file) {
+    const res = await fetch(api + file + "?ref=" + enc(gh.branch), { headers, cache: "no-store" });
+    if (!res.ok) throw res;
+    const body = await res.json();
+    sha[file] = body.sha;
+    return unb64(body.content);
+  }
+  async function put(file, text, message, keepalive) {
+    const res = await fetch(api + file, { method: "PUT", headers, keepalive, body: JSON.stringify({ message, content: b64(text), sha: sha[file], branch: gh.branch }) });
+    if (!res.ok) throw res;
+    sha[file] = (await res.json()).content.sha;
+  }
+  async function load() {
+    for (const [src, coll, file] of sheets) {
+      const text = await get(file);
+      const fields = FIELDS[src.startsWith("composers") ? "c" : "w"];
+      const known = new Set(S.data[src].map(it => it.item));
+      const cell = c => /^".*"$/.test(c) ? c.slice(1, -1).replace(/""/g, '"') : c;
+      const [head, ...rows] = text.split(/\r?\n/).filter(Boolean).map(l => l.split("\t").map(cell));
+      await locked(() => {
+        const have = db.all(coll);
+        for (const r of rows) {
+          const row = Object.fromEntries(head.map((h, i) => [h, r[i] ?? ""]));
+          if (!known.has(row.item)) continue;
+          if (store.get(dk + coll + "/" + row.item)) continue;
+          const body = { item: row.item };
+          for (const f of fields) body[f] = row[f] ?? "";
+          if (fields.some(f => body[f])) have[row.item] = body;
+          else delete have[row.item];
+        }
+        db.replace(coll, have);
+      });
+      sent[file] = text;
+    }
+    loaded = true;
+  }
+  function fail(res) {
+    const denied = res && (res.status === 401 || res.status === 404 || (res.status === 403 && res.headers.get("x-ratelimit-remaining") !== "0" && !res.headers.get("retry-after")));
+    if (denied) {
+      dead = true; conn("Not saving to GitHub", true);
+      banner("The key in your link doesn't work. Your answers are safe in this browser: keep working, and ask the person who invited you for a new link.");
+      return;
+    }
+    wait = Math.min((wait || 7.5) * 2, 300);
+    conn("Not saved to GitHub yet, retrying", true);
+    // An edit made during the failed PUT set a short timer; the backoff replaces it.
+    clearTimeout(timer); timer = null;
+    schedule(wait * 1000);
+  }
+  function schedule(ms = 4000) {
+    if (dead) return;
+    if (wait > 0 && timer) return;
+    clearTimeout(timer);
+    timer = setTimeout(push, Math.max(ms, wait * 1000));
+  }
+  async function push(keepalive = false) {
+    clearTimeout(timer); timer = null;
+    if (dead) return;
+    if (busy) { again = true; return; }
+    busy = true;
+    // What a push sends: the stored rows, read together with the markers rather than this tab's view (which another
+    // tab's save reaches only with its storage event), plus this tab's unflushed edits.
+    const stored = () => Object.fromEntries(sheets.map(([, coll]) => {
+      const m = db.all(coll);
+      for (const [id, v] of Object.entries(S.local[coll])) m[id] = { ...(m[id] || {}), ...v };
+      return [coll, m];
+    }));
+    const snap = dirtyNow();
+    let rows = stored();
+    const ids = Object.keys(snap).map(k => k.slice(k.indexOf("/") + 1));
+    const message = gh.annotator + ": " + (ids.length ? ids.slice(0, 8).join(", ") + (ids.length > 8 ? " and " + (ids.length - 8) + " more" : "") : "answers");
+    try {
+      if (!loaded) { conn("Loading from GitHub…"); await load(); rows = stored(); }
+      let retried = false;
+      for (;;) {
+        let conflict = false;
+        for (const [src, coll, file] of sheets) {
+          const text = tsvFor(src, coll, rows[coll]);
+          if (text === sent[file]) continue;
+          conn("Saving to GitHub…");
+          try { await put(file, text, message, keepalive); }
+          catch (res) {
+            if (!(res instanceof Response) || ![409, 422].includes(res.status)) throw res;
+            if (retried) throw res;
+            conflict = true;
+            break;
+          }
+          sent[file] = text;
+        }
+        if (!conflict) break;
+        retried = true;
+        await load();
+        rows = stored();
+      }
+      wait = 0;
+      // A marker goes only while its stored row still holds what was sent: another tab writes its marker before its row.
+      const fields = [...new Set([...FIELDS.c, ...FIELDS.w])];
+      const same = (a = {}, b = {}) => fields.every(f => (a[f] ?? "") === (b[f] ?? ""));
+      await locked(() => {
+        const now = Object.fromEntries(Object.keys(rows).map(c => [c, db.all(c)]));
+        for (const [k, v] of Object.entries(snap)) {
+          const c = k.slice(0, k.indexOf("/")), id = k.slice(k.indexOf("/") + 1);
+          if (store.get(dk + k) === v && (!rows[c] || same(now[c][id], rows[c][id]))) store.del(dk + k);
+        }
+      });
+      conn(ids.length ? "Saved to GitHub " + time() : "Connected to GitHub");
+    } catch (res) {
+      fail(res instanceof Response ? res : null);
+    } finally {
+      busy = false;
+      if (again) { again = false; schedule(); }
+    }
+  }
+  onEdit = () => { if (!dead) { conn("Saving to GitHub…"); schedule(); } };
+  document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "hidden") {
+      // An edit still waiting for its flush goes in this push too (push sends this tab's unflushed edits).
+      const unsaved = sheets.some(([, coll]) => Object.keys(S.local[coll]).length);
+      if (loaded && (unsaved || Object.keys(dirtyNow()).length) && wait === 0) push(true);
+    } else if (!dead) { loaded = false; schedule(0); }
+  });
+  schedule(0);
+  return { db: wrapper, live: true };
+}
+async function boot() {
+  try {
+    S.data = JSON.parse($("#gold-data").textContent);
+    $("#dumpid").textContent = S.data.dump;
+    // Gold v2 sheets carry style answers on composers, before notes (as in the TSV).
+    if (S.data.style) FIELDS.c.splice(FIELDS.c.indexOf("notes"), 0, "styles", "primary_period", "style_source");
+  } catch (e) {
+    $("#main").innerHTML = ""; $("#main").append(el("div", { class: "panel" }, el("h2", { text: "No items in this page" }), el("p", { text: "Build it from the sheets: python scripts/gold_set.py form --dump <dump>." })));
+    return;
+  }
+  const gh = S.data.github;
+  if (gh) {
+    S.gh = true;
+    $("#conn").after(el("span", { class: "top-links" }, ext(gh.guide, "Guide"), ext(gh.rules, "Rules")));
+  }
+  render();
+  if (gh) {
+    let db = null;
+    try { db = localDb(S.data.dump + "." + gh.annotator); } catch {}
+    if (!db) { conn("Not saving", true); banner("This browser blocks saving (private window?). Open your link in a normal window."); S.readOnly = true; return; }
+    const sync = githubSync(gh, db);
+    S.db = sync.db;
+    if (!sync.live) {
+      S.gh = false;
+      banner("Open this page from your personal link to save your answers to GitHub. Until then they are saved in this browser only.");
+    }
+    return subscribe(true);
+  }
+  if (!window.claude?.use) {
+    try { S.db = localDb(S.data.dump); } catch { S.db = null; }
+    if (S.db) { banner("Local copy: answers are saved in this browser only. Copy them into data/gold/" + S.data.dump + "/ from Progress & export."); return subscribe(true); }
+  }
+  const db = window.claude?.use ? await window.claude.use("db").catch(() => null) : null;
+  if (!db) {
+    conn("Not connected", true);
+    banner("Answers can't be saved in this view. Open the page on claude.ai while signed in; anything you click here is lost on reload.");
+    S.readOnly = true;
+    return;
+  }
+  S.db = db;
+  const user = await window.claude.use("user").catch(() => null);
+  if (user && (await user.isOwner().catch(() => true)) === false) {
+    S.readOnly = true;
+    banner("You can look through the items, but only the owner of this page can save answers.");
+  }
+  subscribe(false);
+}
+function subscribe(local) {
+  let first = 0;
+  for (const c of COLLS) {
+    S.db.collection(c).onSnapshot(snap => {
+      const m = {};
+      for (const d of snap.docs) m[d.id] = d.data();
+      S.server[c] = m;
+      // On a hosted page githubSync reports the GitHub state instead.
+      if (++first >= COLLS.length && !S.gh) conn(local ? "Saving in this browser" : S.readOnly ? "Read only" : "Saving to this page");
+      onServer();
+    }, err => {
+      conn("Connection lost", true);
+      banner("The answer store stopped responding (" + (err?.code || "error") + "). Reload the page before you continue; unsaved edits on screen will be lost.");
+    });
+  }
+}
+boot();
+})();
+</script>
+</body>
+</html>
