@@ -8,7 +8,7 @@ Thank you for helping. This page tells you everything you need: what the project
 
 ## What you check
 
-You check **20 composers** and **30 works**:
+You check **100 composers** and **150 works**:
 
 - for each **composer**: whether the Wikidata item is the right person, whether IMSLP has their composer page, when they died (from library authority files), and their **style** (up to three tags from a fixed list, plus the main period);
 - for each **work**: the instrumentation and form of the original, whether its IMSLP page has files, and IMSLP's rights category.
@@ -17,7 +17,7 @@ The form offers only valid answers and explains each one. Style takes longest: a
 
 ## Time
 
-About **3.4 hours**, including 15 minutes of practice. You can split it over several sittings, because the form remembers your answers.
+About **16.1 hours**, including 15 minutes of practice. You can split it over several sittings, because the form remembers your answers.
 
 ## The blindness rule
 
